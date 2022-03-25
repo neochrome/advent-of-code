@@ -8,16 +8,15 @@ fn part1(readings: &[i32]) -> usize {
         .count()
 }
 
-fn parse(input: &str) -> Vec<i32> {
-    input.lines().filter_map(|line| line.parse().ok()).collect()
+fn part2(readings: &[i32]) -> usize {
+    part1(
+        readings
+            .windows(3)
+            .map(|w| w.iter().sum())
+            .collect::<Vec<i32>>()
+            .as_slice()
+    )
 }
-
-pub fn run() {
-    let input = parse(include_str!("./day01.input"));
-
-    println!("day01 - part1: {}", part1(&input));
-}
-
 
 #[cfg(test)]
 mod tests {
@@ -30,4 +29,23 @@ mod tests {
 
         assert_eq!(count, 7);
     }
+
+    #[test]
+    fn part2() {
+        let count = super::part2(&EXAMPLE);
+
+        assert_eq!(count, 5);
+    }
+}
+
+
+fn parse(input: &str) -> Vec<i32> {
+    input.lines().filter_map(|line| line.parse().ok()).collect()
+}
+
+pub fn run() {
+    let input = parse(include_str!("./day01.input"));
+
+    println!("day01 - part1: {}", part1(&input));
+    println!("day01 - part2: {}", part2(&input));
 }
