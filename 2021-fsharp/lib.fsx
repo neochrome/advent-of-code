@@ -39,3 +39,23 @@ module String =
 
   let split by (str : string) = str.Split([|by|]) |> List.ofArray
   let chars (str : string) = str.ToCharArray()
+
+
+module BitArray =
+  type t = bool array
+
+  let private p2 n = 2.0 ** n |> int
+
+  let value_of : (t -> int) =
+    Array.rev
+    >> Array.mapi (fun i b -> if b then p2 i else 0)
+    >> Array.reduce (+)
+
+  let from_string : (string -> t) =
+    String.chars >> Array.map (fun b -> b = '1')
+
+  let invert : (t -> t) = Array.map not
+
+  let to_string : (t -> string) =
+    Array.map (function true -> "1" | false -> "0")
+    >> String.concat ""
