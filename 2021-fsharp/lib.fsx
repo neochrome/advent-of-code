@@ -34,6 +34,11 @@ module List =
     | x :: xs -> build (List.rev chunk :: chunks) [] xs
     build [] []
 
+  let rotate_left = function
+    | [] -> []
+    | [x] -> [x]
+    | x :: xs -> xs @ [x]
+
 
 module String =
 
