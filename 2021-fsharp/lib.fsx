@@ -40,6 +40,12 @@ module List =
     | x :: xs -> xs @ [x]
 
 
+module Map =
+
+  let invert m =
+    m |> Map.toSeq |> Seq.map (fun (k,v) -> v,k) |> Map.ofSeq
+
+
 module String =
 
   let split by (str : string) = str.Split([|by|]) |> List.ofArray
